@@ -12,7 +12,7 @@ struct InicialExercisesView: View {
     
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var stackPath: PathType
-    @Query private var exercises: [Exercise]
+    @Query(sort: \Exercise.nome) private var exercises: [Exercise]
     
     
     var body: some View {
@@ -22,12 +22,18 @@ struct InicialExercisesView: View {
                 Section {
                     ForEach(exercises.filter{$0.musculo == musculo}, id: \.self) { exercise in
                         NavigationLink(value: exercises.firstIndex(of:exercise)) {
-                            Text("\(exercise.nome)")
+                            HStack {
+                                Text("\(exercise.nome)")
+                                    .bold()
+                                Spacer()
+                                Text("\(exercise.ultimaCarga, specifier: "%.1f")")
+                                    .bold()
+                            }
                         }
                     }
-                    .onDelete(perform: deleteExercises)
+                    .onDelete {self.deleteExercises(at: $0, musculo: musculo)}
                 } header: {
-                    Text(musculo.rawValue)
+                    Text(musculo.localizedName)
                 }
             }
         }
@@ -53,17 +59,10 @@ struct InicialExercisesView: View {
         
     }
     
-    private func addExercises() {
-        withAnimation {
-            let newItem = Exercise(nome: "Huhu", musculo: .ombro, carga: [Carga(peso: 5.5, data: .now)], series: 5, repeticoes: "haha")
-            modelContext.insert(newItem)
-        }
-    }
-    
-    private func deleteExercises(offsets: IndexSet) {
+    private func deleteExercises(at offsets: IndexSet, musculo: Musculo) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(exercises[index])
+                modelContext.delete(exercises.filter{$0.musculo == musculo}[index])
             }
         }
     }
