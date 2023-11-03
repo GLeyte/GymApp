@@ -21,7 +21,7 @@ struct InicialExercisesView: View {
             ForEach(Musculo.allCases) { musculo in
                 Section {
                     ForEach(exercises.filter{$0.musculo == musculo}, id: \.self) { exercise in
-                        NavigationLink(value: String(exercise.id)) {
+                        NavigationLink(value: exercises.firstIndex(of:exercise)) {
                             Text("\(exercise.nome)")
                         }
                     }
@@ -36,13 +36,19 @@ struct InicialExercisesView: View {
                 EditButton()
             }
             ToolbarItem {
-                Button(action: addExercises) {
+                Button {
+                    stackPath.path.append(-1)
+                } label: {
                     Label("Add Item", systemImage: "plus")
                 }
             }
         }
-        .navigationDestination(for: String.self) { value in
-            Text ("ANOTHER SCREEN: \(value)")
+        .navigationDestination(for: Int.self) { value in
+            if value == -1 {
+                NewExerciseView()
+            } else {
+                Text ("ANOTHER SCREEN: \(value)")
+            }
         }
         
     }
