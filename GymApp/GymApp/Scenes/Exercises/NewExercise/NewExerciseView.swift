@@ -14,11 +14,8 @@ struct NewExerciseView: View {
     @EnvironmentObject var stackPath: PathType
     @Query private var exercises: [Exercise]
     
-    @State private var nome: String = ""
-    @State private var musculo: Musculo = .abdomen
-    @State private var peso: Float = 0.0
-    @State private var series = 3
-    @State private var repeticoes = ""
+    @State private var model = NewExerciseViewModel(nome: "", musculo: .abdomen, peso: 0.0, series: 4, repeticoes: "")
+    
     @FocusState private var nomeFocused: Bool
     @FocusState private var repeticoesFocused: Bool
     
@@ -32,7 +29,7 @@ struct NewExerciseView: View {
                     
                     HStack(spacing: 16) {
                         Text("Nome do exercício:")
-                        TextField("", text: $nome)
+                        TextField("", text: $model.nome)
                             .foregroundStyle(.secondary)
                         // Gambiarra
                             .focused($nomeFocused)
@@ -42,7 +39,7 @@ struct NewExerciseView: View {
                             .autocorrectionDisabled()
                     }
                     
-                    Picker("Músculo focal:", selection: $musculo) {
+                    Picker("Músculo focal:", selection: $model.musculo) {
                         ForEach(Musculo.allCases , id: \.id){
                             Text($0.localizedName)
                                 .tag($0)
@@ -52,12 +49,12 @@ struct NewExerciseView: View {
                     HStack(spacing: 16) {
                         Text("Carga:")
                         
-                        TextField("", value: $peso, format: .number)
+                        TextField("", value: $model.peso, format: .number)
                             .keyboardType(.decimalPad)
                             .foregroundStyle(.secondary)
                     }
                     
-                    Picker("Número de séries:", selection: $series) {
+                    Picker("Número de séries:", selection: $model.series) {
                         ForEach(3..<6){
                             Text("\($0)")
                                 .tag($0)
@@ -67,7 +64,7 @@ struct NewExerciseView: View {
                     HStack(spacing: 16) {
                         Text("Repetições:")
                         
-                        TextField("", text: $repeticoes)
+                        TextField("", text: $model.repeticoes)
                             .foregroundStyle(.secondary)
                         // Gambiarra
                             .focused($repeticoesFocused)
@@ -114,7 +111,7 @@ extension NewExerciseView {
     
     private func addExercises() {
         withAnimation {
-            let newItem = Exercise(nome: nome, musculo: musculo, carga: [Carga(peso: peso, data: .now)], ultimaCarga: peso, series: series, repeticoes: repeticoes)
+            let newItem = Exercise(nome: model.nome, musculo: model.musculo, carga: [Carga(peso: model.peso, data: .now)], ultimaCarga: model.peso, series: model.series, repeticoes: model.repeticoes)
             modelContext.insert(newItem)
         }
     }
