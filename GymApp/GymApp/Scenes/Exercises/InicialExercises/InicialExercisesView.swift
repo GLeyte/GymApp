@@ -53,7 +53,7 @@ struct InicialExercisesView: View {
             if value == -1 {
                 NewExerciseView()
             } else {
-                Text ("ANOTHER SCREEN: \(value)")
+                ExerciseStatusView(exercise: exercises[value])
             }
         }
         

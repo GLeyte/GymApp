@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D31700A52AF5792900E0794A /* NewExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31700A42AF5792900E0794A /* NewExerciseViewModel.swift */; };
+		D31700AA2AF57B9E00E0794A /* ExerciseStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31700A92AF57B9E00E0794A /* ExerciseStatusView.swift */; };
 		D3AB8DF52AF43CB200FED499 /* GymAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AB8DF42AF43CB200FED499 /* GymAppApp.swift */; };
 		D3AB8DF92AF43CB200FED499 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AB8DF82AF43CB200FED499 /* Exercise.swift */; };
 		D3AB8DFB2AF43CB300FED499 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3AB8DFA2AF43CB300FED499 /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		D31700A42AF5792900E0794A /* NewExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExerciseViewModel.swift; sourceTree = "<group>"; };
+		D31700A92AF57B9E00E0794A /* ExerciseStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStatusView.swift; sourceTree = "<group>"; };
 		D3AB8DF12AF43CB200FED499 /* GymApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3AB8DF42AF43CB200FED499 /* GymAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymAppApp.swift; sourceTree = "<group>"; };
 		D3AB8DF82AF43CB200FED499 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
@@ -50,6 +52,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D31700A62AF57B6100E0794A /* ExerciseStatus */ = {
+			isa = PBXGroup;
+			children = (
+				D31700A92AF57B9E00E0794A /* ExerciseStatusView.swift */,
+			);
+			path = ExerciseStatus;
+			sourceTree = "<group>";
+		};
 		D3AB8DE82AF43CB200FED499 = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +133,7 @@
 			children = (
 				D3AB8E0F2AF43EF200FED499 /* InicialExercises */,
 				D3E2EC772AF48E35006E1645 /* NewExercise */,
+				D31700A62AF57B6100E0794A /* ExerciseStatus */,
 			);
 			path = Exercises;
 			sourceTree = "<group>";
@@ -223,6 +234,7 @@
 			files = (
 				D3AB8E112AF43F5A00FED499 /* InicialExercisesView.swift in Sources */,
 				D3AB8E172AF44E7100FED499 /* Teste.swift in Sources */,
+				D31700AA2AF57B9E00E0794A /* ExerciseStatusView.swift in Sources */,
 				D3E2EC7B2AF494A5006E1645 /* Carga.swift in Sources */,
 				D3AB8E092AF43D8400FED499 /* MainView.swift in Sources */,
 				D3AB8E0B2AF43DC900FED499 /* PathType.swift in Sources */,

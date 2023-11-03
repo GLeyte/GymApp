@@ -53,4 +53,6 @@ final class Exercise: Codable {
         try container.encode(repeticoes, forKey: .repeticoes)
     }
     
+    static let example = Exercise(nome: "Extensora", musculo: .pernas, carga: [Carga(peso: 40, data: Date(timeIntervalSinceNow: -1000000)), Carga(peso: 52, data: .now)], ultimaCarga: 52, series: 4, repeticoes: "8")
+    
 }

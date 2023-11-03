@@ -111,6 +111,7 @@ extension NewExerciseView {
     
     private func addExercises() {
         withAnimation {
+            
             let newItem = Exercise(nome: model.nome, musculo: model.musculo, carga: [Carga(peso: model.peso, data: .now)], ultimaCarga: model.peso, series: model.series, repeticoes: model.repeticoes)
             modelContext.insert(newItem)
         }
