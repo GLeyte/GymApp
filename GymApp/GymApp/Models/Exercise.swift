@@ -12,7 +12,7 @@ import SwiftData
 final class Exercise: Codable {
     
     enum CodingKeys: CodingKey {
-        case nome, musculo, carga, ultimaCarga, series, repeticoes
+        case nome, musculo, carga, ultimaCarga, series, descricao
     }
     
     @Attribute(.unique) var id: String = UUID().uuidString
@@ -21,16 +21,16 @@ final class Exercise: Codable {
     var carga : [Carga]? = []
     var ultimaCarga: Float
     var series: Int
-    var repeticoes: String
+    var descricao: String
     
-    init(nome: String, musculo: Musculo, carga: [Carga], ultimaCarga: Float, series: Int, repeticoes: String) {
+    init(nome: String, musculo: Musculo, carga: [Carga], ultimaCarga: Float, series: Int, descricao: String) {
         
         self.nome = nome
         self.musculo = musculo
         self.ultimaCarga = ultimaCarga
         self.carga = carga
         self.series = series
-        self.repeticoes = repeticoes
+        self.descricao = descricao
     }
     
     required init(from decoder: Decoder) throws {
@@ -40,7 +40,7 @@ final class Exercise: Codable {
         self.carga = try container.decode([Carga].self, forKey: .carga)
         self.ultimaCarga = try container.decode(Float.self, forKey: .ultimaCarga)
         self.series = try container.decode(Int.self, forKey: .series)
-        self.repeticoes = try container.decode(String.self, forKey: .repeticoes)
+        self.descricao = try container.decode(String.self, forKey: .descricao)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -50,9 +50,9 @@ final class Exercise: Codable {
         try container.encode(carga, forKey: .carga)
         try container.encode(ultimaCarga, forKey: .carga)
         try container.encode(series, forKey: .series)
-        try container.encode(repeticoes, forKey: .repeticoes)
+        try container.encode(descricao, forKey: .descricao)
     }
     
-    static let example = Exercise(nome: "Extensora", musculo: .pernas, carga: [Carga(peso: 40, data: Date(timeIntervalSinceNow: -1000000)), Carga(peso: 52, data: .now)], ultimaCarga: 52, series: 4, repeticoes: "8")
+    static let example = Exercise(nome: "Extensora", musculo: .pernas, carga: [Carga(peso: 40, date: Date(timeIntervalSinceNow: -1000000)), Carga(peso: 52, date: .now)], ultimaCarga: 52, series: 4, descricao: "8")
     
 }

@@ -21,7 +21,7 @@ struct InicialExercisesView: View {
             ForEach(Musculo.allCases) { musculo in
                 Section {
                     ForEach(exercises.filter{$0.musculo == musculo}, id: \.self) { exercise in
-                        NavigationLink(value: exercises.firstIndex(of:exercise)) {
+                        NavigationLink(value: exercise.id) {
                             HStack {
                                 Text("\(exercise.nome)")
                                     .bold()
@@ -38,22 +38,19 @@ struct InicialExercisesView: View {
             }
         }
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
-            }
-            ToolbarItem {
-                Button {
-                    stackPath.path.append(-1)
-                } label: {
-                    Label("Add Item", systemImage: "plus")
-                }
+            NavigationLink(value: "Adicionar") {
+                Image(systemName: "plus")
             }
         }
-        .navigationDestination(for: Int.self) { value in
-            if value == -1 {
+        .navigationDestination(for: String.self) { value in
+            if value == "Adicionar" {
                 NewExerciseView()
             } else {
-                ExerciseStatusView(exercise: exercises[value])
+                if exercises.contains(where: {$0.id == value}) {
+                    ExerciseStatusView(exercise: exercises.first{$0.id == value}!)
+                } else {
+                    Text("Erro")
+                }
             }
         }
         

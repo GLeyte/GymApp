@@ -12,26 +12,26 @@ import SwiftData
 final class Carga: Codable {
     
     enum CodingKeys: CodingKey {
-        case peso, data
+        case peso, date
     }
     
     var peso: Float
-    var data: Date
+    var date: Date
     
-    init(peso: Float, data: Date) {
+    init(peso: Float, date: Date) {
         self.peso = peso
-        self.data = data
+        self.date = date
     }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.peso = try container.decode(Float.self, forKey: .peso)
-        self.data = try container.decode(Date.self, forKey: .data)
+        self.date = try container.decode(Date.self, forKey: .date)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(peso, forKey: .peso)
-        try container.encode(data, forKey: .data)
+        try container.encode(date, forKey: .date)
     }
 }

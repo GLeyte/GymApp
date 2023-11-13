@@ -8,7 +8,7 @@
 import Foundation
 
 class PathType: ObservableObject {
-    @Published var path: [Int]
+    @Published var path: [String]
     init(){
         self.path = []
     }

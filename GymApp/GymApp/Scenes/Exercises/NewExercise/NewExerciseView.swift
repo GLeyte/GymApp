@@ -14,10 +14,10 @@ struct NewExerciseView: View {
     @EnvironmentObject var stackPath: PathType
     @Query private var exercises: [Exercise]
     
-    @State private var model = NewExerciseViewModel(nome: "", musculo: .abdomen, peso: 0.0, series: 4, repeticoes: "")
+    @State private var model = NewExerciseViewModel(nome: "", musculo: .abdomen, peso: 0.0, series: 4, descricao: "")
     
     @FocusState private var nomeFocused: Bool
-    @FocusState private var repeticoesFocused: Bool
+    @FocusState private var descricaoFocused: Bool
     
     var body: some View {
         
@@ -30,6 +30,7 @@ struct NewExerciseView: View {
                     HStack(spacing: 16) {
                         Text("Nome do exercício:")
                         TextField("", text: $model.nome)
+                            .multilineTextAlignment(.trailing)
                             .foregroundStyle(.secondary)
                         // Gambiarra
                             .focused($nomeFocused)
@@ -50,6 +51,7 @@ struct NewExerciseView: View {
                         Text("Carga:")
                         
                         TextField("", value: $model.peso, format: .number)
+                            .multilineTextAlignment(.trailing)
                             .keyboardType(.decimalPad)
                             .foregroundStyle(.secondary)
                     }
@@ -62,25 +64,27 @@ struct NewExerciseView: View {
                     }
                     
                     HStack(spacing: 16) {
-                        Text("Repetições:")
+                        Text("Descrição:")
                         
-                        TextField("", text: $model.repeticoes)
+                        TextField("", text: $model.descricao)
+                            .multilineTextAlignment(.trailing)
                             .foregroundStyle(.secondary)
                         // Gambiarra
-                            .focused($repeticoesFocused)
+                            .focused($descricaoFocused)
                             .onLongPressGesture(minimumDuration: 0.0) {
-                                repeticoesFocused = true
+                                descricaoFocused = true
                             }
                             .autocorrectionDisabled()
                     }
                 }
                 
-                Section(footer: HStack(alignment: .center) {
-                    Spacer()
-                    botao
-                    Spacer()
-                }) {
-                    EmptyView()
+            }
+            .toolbar{
+                Button {
+                    addExercises()
+                    stackPath.path.removeLast()
+                } label: {
+                    Text("Adicionar")
                 }
             }
             .scrollDisabled(true)
@@ -92,27 +96,10 @@ struct NewExerciseView: View {
 
 extension NewExerciseView {
     
-    
-    var botao: some View {
-        Button {
-            addExercises()
-            stackPath.path.removeLast()
-        } label: {
-            
-            ZStack {
-                Text("Acidionar exercício")
-                    .padding()
-                    .background(Color.accentColor)
-                    .foregroundStyle(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-            }
-        }
-    }
-    
     private func addExercises() {
         withAnimation {
             
-            let newItem = Exercise(nome: model.nome, musculo: model.musculo, carga: [Carga(peso: model.peso, data: .now)], ultimaCarga: model.peso, series: model.series, repeticoes: model.repeticoes)
+            let newItem = Exercise(nome: model.nome, musculo: model.musculo, carga: [Carga(peso: model.peso, date: .now)], ultimaCarga: model.peso, series: model.series, descricao: model.descricao)
             modelContext.insert(newItem)
         }
     }
